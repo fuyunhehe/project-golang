@@ -1,11 +1,11 @@
-package tools\io
+package io
 
 import (
 	"testing"
 )
 
 func TestFileSize(t *testing.T) {
-	cases := []struct{
+	cases := []struct {
 		in string
 	}{
 		{"fd.go"},
