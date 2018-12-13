@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-type myerror interface{
+type myerror interface {
 	MyError() string
 }
 
@@ -26,6 +26,7 @@ func (e *Error) String() string {
 }
 
 type mInt int
+
 func (e mInt) MyError() string {
 	return string("aaaa mInt\n")
 }
@@ -38,12 +39,22 @@ func (e mInt) MyError() string {
 //	}
 //}
 
+func BB(b []string) {
+	a := make([]string, 0, 0)
+	fmt.Println(a, len(a), a == nil)
+	if b == nil {
+		fmt.Println("nilnil")
+	}
+	fmt.Println(b, len(b))
+}
+
 func main() {
 	var e *Error
 	var a mInt
 	fmt.Printf("%T\t%T\n", e, a)
 	fmt.Println(e, a)
 	fmt.Println(reflect.ValueOf(e))
+	BB(nil)
 	//SS(e)
 	//n, err := fmt.Println(e, a)
 	//fmt.Println("-----------", n, err)

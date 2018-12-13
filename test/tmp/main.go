@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	//_ "runtime/pprof"
+	"github.com/fuyunhehe/project-golang/test/tmp/minit"
 )
 
 //func myHandler(w http.ResponseWriter, r *http.Request) {
@@ -38,7 +38,7 @@ import (
 //		},
 //	}
 //	fmt.Println(bb.AList)
-//	for i, a := range bb.AList {
+//	for i, a := rangeT bb.AList {
 //		a.Name = "b"
 //		bb.AList[i] = a
 //	}
@@ -46,7 +46,7 @@ import (
 //}
 //
 //func channelTest() {
-//	c := make(chan string, 3)
+//	c := make(chanT string, 3)
 //	var i = 0
 //	for {
 //		select {
@@ -96,5 +96,8 @@ func main() {
 	//fmt.Println(hex.EncodeToString(a))
 	//fmt.Println(round((1<<14)+1<<10, 1<<13), 1<<14, 1<<13)
 	//fmt.Println("main", f(5))
-	fmt.Println("hello world!")
+	//a := 4 << (^uintptr(0) >> 63)
+	//fmt.Println(a)
+
+	minit.AA()
 }

@@ -14,16 +14,16 @@ type category struct {
 	Children []category `json:"children"`
 }
 
-type CategoriesResponse struct {
+type categoriesResponse struct {
 	Categories []category `json:"categories"`
 }
 
-func main()  {
-	aa, cc := &CategoriesResponse{
+func main() {
+	aa, cc := &categoriesResponse{
 		[]category{
 			{
-				Name:"aaa",
-				Children:[]category{
+				Name: "aaa",
+				Children: []category{
 					{
 						"bbb",
 						nil,
@@ -31,10 +31,17 @@ func main()  {
 				},
 			},
 		},
-	}, &CategoriesResponse{}
+	}, &categoriesResponse{}
 
 	bb, _ := json.Marshal(aa)
 	fmt.Println(string(bb))
 	_ = json.Unmarshal(bb, cc)
-	fmt.Println(cc)
+	fmt.Printf("%++v\n", cc)
+
+	d := struct {
+		Uuids []string `json:"uuids"`
+	}{}
+	a, _ := json.Marshal(map[string]interface{}{"uuids": []string{"aaaaa"}})
+	json.Unmarshal(a, &d)
+	fmt.Println(d)
 }
