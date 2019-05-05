@@ -4,8 +4,11 @@ import (
 	"fmt"
 	"runtime"
 	"sync"
-	"math/rand"
 	"time"
+)
+
+var (
+	_ = time.Second
 )
 
 //no.1
@@ -56,23 +59,27 @@ func GoCall() {
 	wg.Add(20)
 	for i := 0; i < 10; i++ {
 		go func() {
-			r := rand.Intn(5)
-			time.Sleep(time.Second * time.Duration(r))
+			//r := rand.Intn(5)
+			//time.Sleep(time.Second * time.Duration(r))
 			fmt.Println("1i: ", i)
 			wg.Done()
 		}()
-		time.Sleep(time.Second)
+		//time.Sleep(time.Second)
 	}
 	for i := 0; i < 10; i++ {
 		go func(i int) {
-			r := rand.Intn(5)
-			time.Sleep(time.Second * time.Duration(r))
+			//r := rand.Intn(5)
+			//time.Sleep(time.Second * time.Duration(r))
 			fmt.Println("2i: ", i)
 			wg.Done()
 		}(i)
-		time.Sleep(time.Second)
+		//time.Sleep(time.Second)
 	}
+	//go func() {
+	//	wg.Wait()
+	//}()
 	wg.Wait()
+	//time.Sleep(time.Second*3)
 }
 
 //no.4
@@ -167,7 +174,7 @@ func (ua *userAges) Get(name string) int {
 
 //no.9
 type threadSafeSet struct {
-	s rune
+	s []interface{}
 	sync.RWMutex
 }
 
@@ -194,10 +201,17 @@ func ChanCall() {
 	for i := 0; i < 100; i++ {
 		tss.s = append(tss.s, i*2)
 	}
-	c := tss.Iter()
-	for s := range c {
-		fmt.Println(s)
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	f := func() {
+		for s := range tss.Iter() {
+			fmt.Println(s)
+		}
+		wg.Done()
 	}
+	go f()
+	go f()
+	wg.Wait()
 }
 
 //no.10

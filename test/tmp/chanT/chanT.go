@@ -3,6 +3,7 @@ package chanT
 import (
 	"fmt"
 	"time"
+	"sync"
 )
 
 func ChanCall1() {
@@ -32,4 +33,31 @@ func ChanCall2() {
 	fmt.Println("out before close")
 	close(c)
 	fmt.Println("out after close")
+}
+
+func ChanCall3() {
+	c := make(chan int)
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		for i := 0; i < 2; i++ {
+			b := <-c
+			fmt.Println(10 + b)
+		}
+		wg.Done()
+	}()
+	go func() {
+		for i := 1; i < 4; i++ {
+			c <- i
+		}
+		close(c)
+	}()
+	go func() {
+		for i := 0; i < 2; i++ {
+			b := <-c
+			fmt.Println(20 + b)
+		}
+		wg.Done()
+	}()
+	wg.Wait()
 }
